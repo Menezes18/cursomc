@@ -1,8 +1,12 @@
 package com.menezesdev;
 
 import com.menezesdev.models.Categoria;
+import com.menezesdev.models.Cidade;
+import com.menezesdev.models.Estado;
 import com.menezesdev.models.Produto;
 import com.menezesdev.repositories.CategoriaRepository;
+import com.menezesdev.repositories.CidadeRepository;
+import com.menezesdev.repositories.EstadoRepository;
 import com.menezesdev.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +22,12 @@ public class CourseMcApplication implements CommandLineRunner { //CommandLineRun
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CourseMcApplication.class, args);
 	}
@@ -38,9 +48,22 @@ public class CourseMcApplication implements CommandLineRunner { //CommandLineRun
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
+
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+
+		est2.getCidades().addAll(Arrays.asList(c1));
+		est1.getCidades().addAll(Arrays.asList(c2,c3));
+
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 
 
 	}

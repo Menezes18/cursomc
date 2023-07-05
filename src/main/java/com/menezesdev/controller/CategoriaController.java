@@ -1,7 +1,9 @@
 package com.menezesdev.controller;
 
 import com.menezesdev.models.Categoria;
+import com.menezesdev.services.CategoriaService;
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,18 +15,16 @@ import java.util.List;
 @RequestMapping(value ="/categorias")
 public class CategoriaController {
 
+	@Autowired
+	private CategoriaService service;
+	//@GetMapping(value = "/{id}", path = "/listar")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {
+		Categoria categoria = service.buscar(id);
 
-
-	@GetMapping(path = "/listar")
-	public List<Categoria> listar() {
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Escritório");
-
-		List<Categoria> lista = new ArrayList<>();
-		lista.add(cat1);
-		lista.add(cat2);
-
-		return lista;
+		return ResponseEntity.ok().body(categoria);
+		//return ResponseEntity.badRequest().body(new Error(1, "Error processing request"));
+		//return ResponseEntity<>(obj, HttpStatus.OK);
 	}
 	@GetMapping(path = "/teste")
 	public Categoria test() {

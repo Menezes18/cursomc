@@ -24,6 +24,7 @@ public class CourseMcApplication implements CommandLineRunner { //CommandLineRun
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
 
@@ -33,9 +34,10 @@ public class CourseMcApplication implements CommandLineRunner { //CommandLineRun
 
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
-		p1.getCategoria().addAll(Arrays.asList(cat1));
-		p2.getCategoria().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategoria().addAll(Arrays.asList(cat1));
+
+		p1.getCategorias().addAll(Arrays.asList(cat1));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
+		p3.getCategorias().addAll(Arrays.asList(cat1));
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 

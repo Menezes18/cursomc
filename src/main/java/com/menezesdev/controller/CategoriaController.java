@@ -18,14 +18,13 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService service;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria categoria2 = service.buscar(id);
-
-		return ResponseEntity.ok().body(categoria2);
+		Categoria obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
+	}
 		//return ResponseEntity.badRequest().body(new Error(1, "Error processing request"));
 		//return ResponseEntity<>(obj, HttpStatus.OK);
-	}
 	@GetMapping(path = "/teste")
 	public Categoria test() {
 		return new Categoria(3, "Teste");

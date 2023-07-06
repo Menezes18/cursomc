@@ -1,5 +1,6 @@
 package com.menezesdev.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
+    @JsonBackReference //não pode ser liberado
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

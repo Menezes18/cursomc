@@ -1,5 +1,7 @@
 package com.menezesdev.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,6 +14,7 @@ public class Cidade implements Serializable {
     private Integer id;
     private String nome;
 
+    @JsonManagedReference //liberado
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;

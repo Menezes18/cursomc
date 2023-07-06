@@ -1,5 +1,6 @@
 package com.menezesdev.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.menezesdev.models.enums.TipoCliente;
 import jakarta.persistence.*;
 
@@ -16,6 +17,7 @@ public class Cliente implements Serializable {
     private String cpfOuCpnpj;
     private Integer tipo;
 
+    @JsonManagedReference //liberado
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 

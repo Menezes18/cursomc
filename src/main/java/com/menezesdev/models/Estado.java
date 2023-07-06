@@ -1,5 +1,6 @@
 package com.menezesdev.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,8 +16,13 @@ public class Estado implements Serializable {
     private Integer id;
     private String nome;
 
+    @JsonBackReference //
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList();
+
+    public Estado(){
+
+    }
 
     public Estado(Integer id, String nome) {
         super();

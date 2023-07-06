@@ -20,8 +20,8 @@ public class CategoriaController {
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria obj = service.find(id);
-		return ResponseEntity.ok().body(obj);
+		Categoria categoria = service.find(id);
+		return ResponseEntity.ok().body(categoria);
 	}
 		//return ResponseEntity.badRequest().body(new Error(1, "Error processing request"));
 		//return ResponseEntity<>(obj, HttpStatus.OK);

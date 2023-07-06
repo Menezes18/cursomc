@@ -1,13 +1,8 @@
 package com.menezesdev;
 
-import com.menezesdev.models.Categoria;
-import com.menezesdev.models.Cidade;
-import com.menezesdev.models.Estado;
-import com.menezesdev.models.Produto;
-import com.menezesdev.repositories.CategoriaRepository;
-import com.menezesdev.repositories.CidadeRepository;
-import com.menezesdev.repositories.EstadoRepository;
-import com.menezesdev.repositories.ProdutoRepository;
+import com.menezesdev.models.*;
+import com.menezesdev.models.enums.TipoCliente;
+import com.menezesdev.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +22,11 @@ public class CourseMcApplication implements CommandLineRunner { //CommandLineRun
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseMcApplication.class, args);
@@ -64,6 +64,18 @@ public class CourseMcApplication implements CommandLineRunner { //CommandLineRun
 
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93385755"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38229834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll((Arrays.asList(e1, e2)));
+
 
 
 	}

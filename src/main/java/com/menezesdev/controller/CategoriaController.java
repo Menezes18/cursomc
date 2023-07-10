@@ -45,7 +45,13 @@ public class CategoriaController {
 
 	}
 
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@RequestBody Categoria categoria, @PathVariable Integer id) {
+		categoria.setId(id);
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 
+	}
 
 
 

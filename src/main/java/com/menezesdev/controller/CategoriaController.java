@@ -1,5 +1,6 @@
 package com.menezesdev.controller;
 
+import com.menezesdev.dto.CategoriaDTO;
 import com.menezesdev.models.Categoria;
 import com.menezesdev.services.CategoriaService;
 import org.apache.coyote.Response;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value ="/categorias")
@@ -51,6 +53,12 @@ public class CategoriaController {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 
+	}
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = service.findAll();
+		List<CategoriaDTO> listDto = list.stream().map(objcategoria -> new CategoriaDTO(objcategoria)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 

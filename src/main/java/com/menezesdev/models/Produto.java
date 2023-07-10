@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 @Entity
 public class Produto  implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -25,6 +23,9 @@ public class Produto  implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "categoria_id") //chave estrangeira para entidade "Categoria"
     ) //configuração que permite o fácil acesso e manipulação da relação entre produtos e categorias
     private List<Categoria> categorias = new ArrayList<>();
+    @OneToMany(mappedBy = "id.produto")
+    private Set<ItemPedido> itens = new HashSet<>();
+
 
     public Produto() {
     }
@@ -35,7 +36,21 @@ public class Produto  implements Serializable {
         this.nome = nome;
         this.preco = preco;
     }
+    public List<Pedido> getPedidos(){
+        List<Pedido> lista = new ArrayList<>();
+        for (ItemPedido x : itens){
+            lista.add(x.getPedido());
 
+        }
+        return lista;
+    }
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
     public Integer getId() {
         return id;
     }

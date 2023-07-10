@@ -1,8 +1,8 @@
 package com.menezesdev.models;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -20,10 +20,10 @@ public class Pedido implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
 
-    @JsonManagedReference
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //para n da erro de entity
     private Pagamento pagamento;
-    @JsonManagedReference
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

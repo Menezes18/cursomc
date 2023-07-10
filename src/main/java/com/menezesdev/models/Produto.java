@@ -1,6 +1,6 @@
 package com.menezesdev.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -17,7 +17,7 @@ public class Produto  implements Serializable {
     private String nome;
     private Double preco;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany //Configura uma relação muitos-para-muitos entre PRODUTOS e CATEGORIAS
     @JoinTable(name = "PRODUTO_CATEGORIA", // tabela intermediária "PRODUTO_CATEGORIA" é criada para armazenar essa relação
             joinColumns = @JoinColumn(name = "produto_id"), // chave estrangeira para entidade "Produto"

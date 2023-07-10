@@ -1,7 +1,8 @@
 package com.menezesdev.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.menezesdev.models.enums.TipoCliente;
 import jakarta.persistence.*;
 
@@ -18,7 +19,7 @@ public class Cliente implements Serializable {
     private String cpfOuCpnpj;
     private Integer tipo;
 
-    @JsonManagedReference //liberado
+
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
@@ -26,7 +27,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>(); //SET não tem repetição
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
     public Cliente() {

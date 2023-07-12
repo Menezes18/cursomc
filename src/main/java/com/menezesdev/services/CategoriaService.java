@@ -1,5 +1,6 @@
 package com.menezesdev.services;
 
+import com.menezesdev.dto.CategoriaDTO;
 import com.menezesdev.models.Categoria;
 import com.menezesdev.repositories.CategoriaRepository;
 import com.menezesdev.services.exceptions.DataIntegrityException;
@@ -57,6 +58,10 @@ public class CategoriaService {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
 
+    }
+
+    public Categoria fromDTO(CategoriaDTO categoriaDTO){
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 
 

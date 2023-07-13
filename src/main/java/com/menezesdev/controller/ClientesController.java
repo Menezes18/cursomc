@@ -3,6 +3,7 @@ package com.menezesdev.controller;
 
 import com.menezesdev.dto.CategoriaDTO;
 import com.menezesdev.dto.ClienteDTO;
+import com.menezesdev.dto.ClienteNewDTO;
 import com.menezesdev.models.Categoria;
 import com.menezesdev.models.Cliente;
 
@@ -31,14 +32,6 @@ public class ClientesController {
 		Cliente cliente = service.find(id);
 		return ResponseEntity.ok().body(cliente);
 	}
-	/*@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO clienteDTO) {
-		Cliente cliente = service.fromDTO(clienteDTO);
-		cliente = service.insert(cliente);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(cliente.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-
-	}*/
 
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Integer id){
@@ -54,6 +47,14 @@ public class ClientesController {
 		cliente.setId(id);
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+
+	}
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteNewDTO) {
+		Cliente cliente = service.fromDTO(clienteNewDTO);
+		cliente = service.insert(cliente);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 
 	}
 	@RequestMapping(method=RequestMethod.GET)

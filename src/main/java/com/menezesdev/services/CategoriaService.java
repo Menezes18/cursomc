@@ -2,6 +2,7 @@ package com.menezesdev.services;
 
 import com.menezesdev.dto.CategoriaDTO;
 import com.menezesdev.models.Categoria;
+import com.menezesdev.models.Cliente;
 import com.menezesdev.repositories.CategoriaRepository;
 import com.menezesdev.services.exceptions.DataIntegrityException;
 import com.menezesdev.services.exceptions.ObjectNotFoundException;
@@ -35,8 +36,14 @@ public class CategoriaService {
 
     public Categoria update(Categoria categoria)
     {
-        find(categoria.getId());
-        return repo.save(categoria);
+        Categoria newobj = find(categoria.getId());
+        updateData(newobj, categoria);
+        return repo.save(newobj);
+    }
+    private void updateData(Categoria newObj, Categoria obj)
+    {
+        newObj.setNome(obj.getNome());
+
     }
 
     public void delete(Integer id){

@@ -2,15 +2,21 @@ package com.menezesdev.services.validation;
 
 import com.menezesdev.controller.Execpetion.FieldMessage;
 import com.menezesdev.dto.ClienteNewDTO;
+import com.menezesdev.models.Cliente;
 import com.menezesdev.models.enums.TipoCliente;
+import com.menezesdev.repositories.ClienteRepository;
 import com.menezesdev.services.validation.utils.BR;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+
+    @Autowired
+    public ClienteRepository clienteRepository;
     @Override
     public void initialize(ClienteInsert ann) {
     }
@@ -26,6 +32,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
             list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
         }
 
+        Cliente auxcliente = clienteRepository.findByEmail(objDto.getEmail());
+        if(auxcliente != null)
+        {
+            list.add(new FieldMessage("email", "Email já existente" ));
+        }
         // inclua os testes aqui, inserindo erros na lista
 
         for (FieldMessage e : list) {

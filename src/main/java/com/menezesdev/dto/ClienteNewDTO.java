@@ -1,19 +1,31 @@
 package com.menezesdev.dto;
 
-import java.io.Serializable;
+import com.menezesdev.services.validation.ClienteInsert;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+    @NotEmpty(message = "Prenchimento obrigatório")
+    @Size(min = 5, max = 80, message = "O tamanho deve ser entre 6 e 80")
     private String nome;
+    @NotEmpty(message = "Prenchimento obrigatório")
+    @Email(message = "Email inválido")
     private String email;
+    @NotEmpty(message = "Prenchimento obrigatório")
     private String cpfOuCnpj;
     private Integer tipo;
+    @NotEmpty(message = "Prenchimento obrigatório")
     private String logradouro;
     private String numero;
+    @NotEmpty(message = "Prenchimento obrigatório")
     private String complemento;
     private String bairro;
+    @NotEmpty(message = "Prenchimento obrigatório")
     private String cep;
-
     private String telefone1;
     private String telefone2;
     private String telefone3;

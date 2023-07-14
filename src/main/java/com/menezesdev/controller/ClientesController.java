@@ -39,8 +39,8 @@ public class ClientesController {
 		cliente.setId(id);
 		cliente = service.update(cliente);
 		return ResponseEntity.noContent().build();
-
 	}
+
 
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
